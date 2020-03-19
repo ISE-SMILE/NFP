@@ -1,5 +1,6 @@
 
 from io_util import read_groups, write_groups
+import os
 
 def map(folder_in, folder_out,fn, groups_in,groups_out=0,groupsize=0):
     #read groups from parquet file
@@ -9,5 +10,5 @@ def map(folder_in, folder_out,fn, groups_in,groups_out=0,groupsize=0):
     df=fn(df)
 
     #write mapped data 
-    return write_groups(df, folder_out, groups_out,groupsize)
+    return write_groups(df, "{}/{}.parquet".format(folder_out,os.getpid()), groups_out,groupsize)
 

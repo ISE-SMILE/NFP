@@ -2,6 +2,8 @@ import pyarrow.parquet as pq
 import pandas as pd
 import pyarrow as pa
 import math
+import os
+import fnmatch
 
 
 class UndefindedGroupsError(Exception):
@@ -39,3 +41,10 @@ def write_groups(df, path, groups=0, group_size=0):
     del data
     #retrun group count
     return groups
+
+def get_parquet_file_names(folder):
+    files=[]
+    for file in os.listdir(folder):
+        if fnmatch.fnmatch(file, '*.parquet'):
+            files.append(file)
+    return files
