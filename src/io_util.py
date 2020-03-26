@@ -4,6 +4,8 @@ import pyarrow as pa
 import math
 import os
 import fnmatch
+import s3fs
+
 
 
 class UndefindedGroupsError(Exception):
@@ -35,7 +37,7 @@ def write_groups(df, path, groups=0, group_size=0):
             del data
             raise UndefindedGroupsError
    
-   #wirte the groups
+   #write the groups
     pq.write_table(data,path,row_group_size=data.num_rows/groups)
     # cleanup after writing the Table
     del data
@@ -48,3 +50,40 @@ def get_parquet_file_names(folder):
         if fnmatch.fnmatch(file, '*.parquet'):
             files.append(file)
     return files
+
+
+def write_groups_minio(df, path, groups=0, group_size=0):
+    #convert DataFrame to pyarrow.Table
+    data=pa.Table.from_pandas(df)
+
+    #perserve RAM by deleting the original DataFrame because its not needed anymore
+    del df
+
+    
+    minio_access_key = 'minioadmin'
+    minio_secret_key = 'minioadmin'
+    endpoint = '172.17.0.11:9000'
+    client_kwargs = {'endpoint_url': 'http://' + endpoint}
+    fs = s3fs.S3FileSystem(key=minio_access_key, secret=minio_secret_key,client_kwargs=client_kwargs)
+
+
+    bucket_uri = 's3://{0}'.format(path)
+    fs.mkdir(bucket_uri)
+    #first check if group number is set if not check for group size
+    if(groups==0):
+        if(group_size!=0):
+            groups=math.ceil(data.num_rows/group_size)
+        
+        # if neither groups nor group size is set raise an Error
+        else:
+            del data
+            raise UndefindedGroupsError
+
+    #write the groups
+    pq.write_table(data,"{}/{}.parquet".format(path,os.getpid()),row_group_size=data.num_rows/groups, filesystem=fs)
+    # cleanup after writing the Table
+    del data
+    #return group count
+    return groups
+
+
