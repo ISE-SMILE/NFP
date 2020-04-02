@@ -1,6 +1,6 @@
-from parallel import scan_parallel, map_parallel
-from reducer import reduce
-from io_util import read_groups
+from nfp.parallel import scan_parallel, map_parallel
+from nfp.reducer import reduce
+from nfp.io_util import read_groups
 import pandas
 import q6_fn as q6
 

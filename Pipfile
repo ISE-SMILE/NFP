@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 s3fs = "*"
+fnmatch = "*"
+pandas = "*"
+pyarrow = "*"
 
 [requires]
 python_version = "3.7"
