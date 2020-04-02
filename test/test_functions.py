@@ -1,12 +1,13 @@
-from nfp.parallel import scan_parallel, map_parallel
-from nfp.reducer import reduce
-from nfp.io_util import read_groups
+from nfp.scan import scan_parallel
+from nfp.reduce import reduce
+from nfp.common import read_groups
+from nfp.map import map_parallel
 import pandas
 import q6_fn as q6
 
 
 
-scan_parallel("../resources/groups.parquet","./test/scanned",q6.filter,[[0,1]],2)
+scan_parallel("./resources/groups.parquet","./test/scanned",q6.filter,[[0,1]],2)
 #print(read_groups("./test/test_scan.parquet",[0,1]).shape)
 
 
