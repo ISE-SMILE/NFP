@@ -1,0 +1,17 @@
+#in the scan folder use this command to create scan action
+wsk action create scan scan.py --docker openwhisk/python3action:1.0.2 -i
+
+#try out the action
+wsk action invoke --result scan --param file_in "../resources/groups.parquet" -i
+
+
+#generate requirements.txt from Pipfile.lock
+jq -r '.default
+        | to_entries[]
+        | .key + .value.version' \
+    Pipfile.lock > requirements.txt
+
+
+#virtualenv approach to generate zip of python project (throws gcc and cmake errors for me)
+docker run --rm -v "$PWD:/tmp" openwhisk/python3action bash \
+  -c "cd tmp && virtualenv virtualenv && source virtualenv/bin/activate && pip install -r requirements.txt"

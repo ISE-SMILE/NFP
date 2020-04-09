@@ -22,6 +22,7 @@ def scan_minio(file_in,file_out,fn,groups_in,groups_out=0,group_size=0):
     
     # write filtered df to parquet file
     write_groups_minio(df,"{}".format(file_out),groups=groups_out,group_size=group_size)
+    return df.shape
 
 def scan_parallel(file_in,file_out,fn,groups_in,groups_out=0,group_size=0):
     #create threadpool based on num of cpus
