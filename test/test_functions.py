@@ -6,10 +6,10 @@ if module_path not in sys.path:
     sys.path.append(module_path)
 
 
-from nfp.scan import scan_parallel
-from nfp.reduce import reduce
-from nfp.common import read_groups
-from nfp.map import map_parallel
+from faasprocessing.scan import scan_parallel
+from faasprocessing.reduce import reduce
+from faasprocessing.common import read_groups
+from faasprocessing.map import map_parallel
 import pandas
 import q6_fn as q6
 

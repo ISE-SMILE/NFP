@@ -5,7 +5,7 @@ module_path = os.path.abspath("..")
 if module_path not in sys.path: 
     sys.path.append(module_path)
 
-from nfp.scan import scan_minio
+from faasprocessing.scan import scan_minio
 
 def main(args):
     file_in=args.get("file_in")

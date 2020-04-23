@@ -1,5 +1,5 @@
 
-from nfp.common.io_util import read_groups, write_groups, get_parquet_file_names
+from faasprocessing.common.io_util import read_groups, write_groups, get_parquet_file_names
 import os
 import multiprocessing as mp
 

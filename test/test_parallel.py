@@ -1,5 +1,5 @@
-from nfp.parallel import  scan_parallel, map_parallel
-from nfp.reducer import reduce
+from faasprocessing.parallel import  scan_parallel, map_parallel
+from faasprocessing.reducer import reduce
 import q6_fn as q6
 import os
 import shutil

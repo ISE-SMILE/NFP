@@ -1,4 +1,4 @@
-from nfp.common.io_util import read_groups,write_groups, write_groups_minio
+from faasprocessing.common.io_util import read_groups,write_groups, write_groups_minio
 import multiprocessing as mp
 import os
 
