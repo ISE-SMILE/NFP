@@ -1,0 +1,18 @@
+CHANGES
+=======
+
+* renaming
+* renaming
+* renaming
+* update readme
+* added requirements.txt
+* fixed packaging
+* refractoring
+* changed prject structure
+* reading from s3 added
+* minio support added
+* parallel execution added
+* working sacn map reduce
+* initial commit
+* initial commit
+* Initial commit

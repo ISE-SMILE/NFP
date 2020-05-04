@@ -60,10 +60,11 @@ def write_groups_minio(df, path, groups=0, group_size=0):
     del df
 
     
-    minio_access_key = 'minioadmin'
-    minio_secret_key = 'minioadmin'
-    endpoint = '172.17.0.11:9000'
-    client_kwargs = {'endpoint_url': 'http://' + endpoint}
+    minio_access_key = os.environ['MINIO_ACCESS_KEY']
+    minio_secret_key = os.environ['MINIO_SECRET_KEY']
+    endpoint = os.environ['MINIO_IP']
+    port=os.environ['MINIO_PORT']
+    client_kwargs = {'endpoint_url': 'http://' + endpoint+':'+port}
     fs = s3fs.S3FileSystem(key=minio_access_key, secret=minio_secret_key,client_kwargs=client_kwargs)
 
 
@@ -88,10 +89,11 @@ def write_groups_minio(df, path, groups=0, group_size=0):
 
 def read_groups_minio(path, groups):
     # set minio credentials 
-    minio_access_key = 'minioadmin'
-    minio_secret_key = 'minioadmin'
-    endpoint = '172.17.0.11:9000'
-    client_kwargs = {'endpoint_url': 'http://' + endpoint}
+    minio_access_key = os.environ['MINIO_ACCESS_KEY']
+    minio_secret_key = os.environ['MINIO_SECRET_KEY']
+    endpoint = os.environ['MINIO_IP']
+    port=os.environ['MINIO_PORT']
+    client_kwargs = {'endpoint_url': 'http://' + endpoint+':'+port}
     fs = s3fs.S3FileSystem(key=minio_access_key, secret=minio_secret_key,client_kwargs=client_kwargs)
 
     #create the directory in the bucket
