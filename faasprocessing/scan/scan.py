@@ -1,4 +1,4 @@
-from faasprocessing.common.io_util import read_groups,write_groups, write_groups_minio
+from faasprocessing.common.io_util import read_groups,write_groups, write_groups_minio, read_groups_minio
 import multiprocessing as mp
 import os
 
@@ -15,7 +15,7 @@ def scan(file_in,file_out,fn,groups_in,groups_out=0,group_size=0):
 
 def scan_minio(file_in,file_out,fn,groups_in,groups_out=0,group_size=0):
     #read input groups from file into DataFrame
-    df=read_groups(file_in,groups_in)
+    df=read_groups_minio(file_in,groups_in)
 
     # apply all given filter functions
     df=fn(df)

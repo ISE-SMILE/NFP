@@ -60,10 +60,18 @@ def write_groups_minio(df, path, groups=0, group_size=0):
     del df
 
     
-    minio_access_key = os.environ['MINIO_ACCESS_KEY']
-    minio_secret_key = os.environ['MINIO_SECRET_KEY']
-    endpoint = os.environ['MINIO_IP']
-    port=os.environ['MINIO_PORT']
+    minio_access_key = os.environ.get('MINIO_ACCESS_KEY')
+    if minio_access_key is None:
+        minio_access_key= os.environ['__OW_MINIO_ACCESS_KEY']
+    minio_secret_key = os.environ.get('MINIO_SECRET_KEY')
+    if minio_secret_key is None:
+        minio_secret_key=os.environ['__OW_MINIO_SECRET_KEY']
+    endpoint = os.environ.get('MINIO_IP')
+    if endpoint is None:
+        endpoint=os.environ['__OW_MINIO_IP']
+    port=os.environ.get('MINIO_PORT')
+    if port is None:
+        port=os.environ['__OW_MINIO_PORT']
     client_kwargs = {'endpoint_url': 'http://' + endpoint+':'+port}
     fs = s3fs.S3FileSystem(key=minio_access_key, secret=minio_secret_key,client_kwargs=client_kwargs)
 
@@ -89,10 +97,18 @@ def write_groups_minio(df, path, groups=0, group_size=0):
 
 def read_groups_minio(path, groups):
     # set minio credentials 
-    minio_access_key = os.environ['MINIO_ACCESS_KEY']
-    minio_secret_key = os.environ['MINIO_SECRET_KEY']
-    endpoint = os.environ['MINIO_IP']
-    port=os.environ['MINIO_PORT']
+    minio_access_key = os.environ.get('MINIO_ACCESS_KEY')
+    if minio_access_key is None:
+        minio_access_key= os.environ['__OW_MINIO_ACCESS_KEY']
+    minio_secret_key = os.environ.get('MINIO_SECRET_KEY')
+    if minio_secret_key is None:
+        minio_secret_key=os.environ['__OW_MINIO_SECRET_KEY']
+    endpoint = os.environ.get('MINIO_IP')
+    if endpoint is None:
+        endpoint=os.environ['__OW_MINIO_IP']
+    port=os.environ.get('MINIO_PORT')
+    if port is None:
+        port=os.environ['__OW_MINIO_PORT']
     client_kwargs = {'endpoint_url': 'http://' + endpoint+':'+port}
     fs = s3fs.S3FileSystem(key=minio_access_key, secret=minio_secret_key,client_kwargs=client_kwargs)
 
